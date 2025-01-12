@@ -2,7 +2,7 @@
 
 > **Transforme qualquer conversa em uma experiência repleta de risadas!**
 
-Teste Aqui: [https://clown.erikraft.com/](https://clown.erikraft.com/)
+Teste Aqui: [clown.erikraft.com](https://clown.erikraft.com/)
 
 ## **Sobre o Projeto**  
 **Chat Clown** é um site Divertido que faz você Rir com Piadas Únicas e Criativas.  
