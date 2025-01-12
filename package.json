@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Projeto Chat Clown com VS Code",
   "scripts": {
-    "install-clown": "npm install clown",
+    "install-clown": "npm install chat-clown",
     "start": "code ."
   },
   "author": "ErikrafT",
