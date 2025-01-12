@@ -29,6 +29,8 @@ function sendMessage() {
 }
 
 // Respostas engraçadas do Modo Bobo
+let lastReplyIndex = -1; // Índice da última resposta selecionada
+
 function getFunnyReply(userMessage) {
     const funnyReplies = [
         "Eu sou um bot, mas também gosto de memes! 😂",
@@ -51,8 +53,8 @@ function getFunnyReply(userMessage) {
         "O que o menino fez para não ir ao oculista? Se mudou para Boa Vista! 👀",
         "Quem é a mãe do mingau? A mãe zena! 🍽️",
         "Qual é a roupa preferida do macaco? O macacão. 🙊",
-        "Qual é a parte mais velha do carro? O vô-lante!",
-        "Qual é a nota musical preferida dos carros? A ré.",
+        "Qual é a parte mais velha do carro? O vô-lante! 👴🏻",
+        "Qual é a nota musical preferida dos carros? A ré. 🎵🚗",
         "Tenho uma enxada, uma pá e uma foice. Quantas ferramentas eu tenho? Duas, porque uma foi-se! ⛏️",
         "Qual é o estado brasileiro que ama ferramentas? O Ama-pá! 💞",
         "Por que a loja do canivete faliu? Porque só vendia a-fiado! 😜",
@@ -73,13 +75,14 @@ function getFunnyReply(userMessage) {
         "Qual é o esporte preferido dos músicos? Lançamento de disco! 💽💿",
         "O que o azeite disse para o vinagre? 'Falo nada, só óleo' 🛢️👀",
         "O que a vaca foi fazer no espaço? Procurar o vácuo! 🐮🕳️",
-        "Qual é o prato preferido do Thor? Thorresmo. 🤯"
+        "Qual é o prato preferido do Thor? Thorresmo. 🤯",
     ];
 
-    // Gerar uma resposta aleatória
-    const randomIndex = Math.floor(Math.random() * funnyReplies.length);
-    return funnyReplies[randomIndex];
-}
+    // Remover piadas repetidas com base no histórico de mensagens
+    let previousReplies = [];
+    let replyMessage = funnyReplies.find(reply => !previousReplies.includes(reply));
+    previousReplies.push(replyMessage);
+    return replyMessage;
 
 // Upload de arquivos
 const attachButton = document.getElementById('attachButton');
