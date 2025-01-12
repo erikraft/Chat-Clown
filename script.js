@@ -31,6 +31,8 @@ function sendMessage() {
 // Respostas engraçadas do Modo Bobo
 let lastReplyIndex = -1; // Índice da última resposta selecionada
 
+let usedReplies = []; // Lista para armazenar respostas já usadas
+
 function getFunnyReply(userMessage) {
     const funnyReplies = [
         "Eu sou um bot, mas também gosto de memes! 😂",
@@ -78,11 +80,22 @@ function getFunnyReply(userMessage) {
         "Qual é o prato preferido do Thor? Thorresmo. 🤯",
     ];
 
-    // Remover piadas repetidas com base no histórico de mensagens
-    let previousReplies = [];
-    let replyMessage = funnyReplies.find(reply => !previousReplies.includes(reply));
-    previousReplies.push(replyMessage);
+    // Remover piadas já usadas
+    let availableReplies = funnyReplies.filter(reply => !usedReplies.includes(reply));
+
+    if (availableReplies.length === 0) {
+        usedReplies = []; // Resetar a lista de respostas usadas
+        availableReplies = funnyReplies; // Recarregar todas as piadas
+    }
+
+    // Selecionar uma piada aleatória
+    const replyMessage = availableReplies[Math.floor(Math.random() * availableReplies.length)];
+    
+    // Marcar a resposta como usada
+    usedReplies.push(replyMessage);
+
     return replyMessage;
+}
 
 // Upload de arquivos
 const attachButton = document.getElementById('attachButton');
@@ -148,4 +161,3 @@ messageInput.addEventListener('input', () => {
     messageInput.style.height = 'auto'; // Reseta a altura para recalcular
     messageInput.style.height = `${messageInput.scrollHeight}px`; // Define a altura conforme o conteúdo
 });
-
