@@ -3,7 +3,7 @@
 > **Transforme qualquer conversa em uma experiência repleta de risadas!**  
 
 ## **Sobre o Projeto**  
-**Chat Clown** é um site divertido que faz você rir com piadas únicas e criativas.  
+**Chat Clown** é um site Divertido que faz você Rir com Piadas Únicas e Criativas.  
 O site é gratuito, com uma experiência moderna e visualmente atraente.  
 
 ---
