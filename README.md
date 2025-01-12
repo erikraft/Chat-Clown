@@ -4,13 +4,12 @@
 
 ## **Sobre o Projeto**  
 **Chat Clown** é um site divertido que faz você rir com piadas únicas e criativas.  
-O site é gratuito e suportado por anúncios integrados no Próprio código **ErikrafT Ads**, com uma experiência moderna e visualmente atraente.  
+O site é gratuito, com uma experiência moderna e visualmente atraente.  
 
 ---
 
 ## **Funcionalidades Principais**  
 - 🎭 **Geração de piadas** com temas variados.  
-- 📢 **Anúncios inteligentes** integrados no Próprio código **ErikrafT Ads**.  
 - 🌟 **Interface intuitiva** e compatível com dispositivos móveis.  
 - 🔤 **Suporte a ícones Personalizados no Chat** com [Font Awesome](https://fontawesome.com/).  
 
