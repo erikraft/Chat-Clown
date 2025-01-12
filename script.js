@@ -14,6 +14,9 @@ function sendMessage() {
     sentMessage.innerHTML = formattedMessage;
     chatBox.appendChild(sentMessage);
 
+    // Salvar a mensagem no histórico local (incluindo a do bot)
+    saveMessageToLocalStorage(formattedMessage, 'sent');
+
     // Limpar entrada e rolar para o final
     messageInput.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
@@ -25,7 +28,42 @@ function sendMessage() {
         replyMessage.textContent = getFunnyReply(messageText);
         chatBox.appendChild(replyMessage);
         chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Salvar a resposta do bot também no histórico
+        saveMessageToLocalStorage(replyMessage.textContent, 'received');
     }, 1000);
+}
+
+// Salvar a mensagem no localStorage
+function saveMessageToLocalStorage(message, type) {
+    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatHistory.push({ message, type });
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+    renderChatHistory();  // Re-renderiza o histórico
+}
+
+// Carregar o histórico de mensagens do localStorage
+function renderChatHistory() {
+    const chatBox = document.getElementById('chatBox');
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatBox.innerHTML = '';  // Limpar o chat atual
+    chatHistory.forEach(item => {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', item.type);
+        messageElement.innerHTML = item.message;
+        chatBox.appendChild(messageElement);
+    });
+}
+
+// Apagar o histórico
+function clearChatHistory() {
+    localStorage.removeItem('chatHistory');
+    renderChatHistory();  // Re-renderiza o chat vazio
+}
+
+// Inicializar o chat com histórico carregado
+window.onload = function() {
+    renderChatHistory();
 }
 
 // Respostas engraçadas do Modo Bobo
@@ -97,49 +135,6 @@ function getFunnyReply(userMessage) {
     return replyMessage;
 }
 
-// Upload de arquivos
-const attachButton = document.getElementById('attachButton');
-const fileInput = document.getElementById('fileInput');
-
-attachButton.addEventListener('click', () => {
-    fileInput.click();
-});
-
-fileInput.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        const chatBox = document.getElementById('chatBox');
-        const mediaMessage = document.createElement('div');
-        mediaMessage.classList.add('message', 'sent');
-
-        if (file.type.startsWith('image/')) {
-            // Criar elemento para imagem
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(file);
-            img.style.maxWidth = '100px';
-            img.style.borderRadius = '10px';
-            img.alt = 'Imagem enviada'; // Alt para acessibilidade
-            mediaMessage.appendChild(img);
-        } else if (file.type.startsWith('video/')) {
-            // Criar elemento para vídeo
-            const video = document.createElement('video');
-            video.src = URL.createObjectURL(file);
-            video.controls = true;
-            video.style.maxWidth = '150px';
-            mediaMessage.appendChild(video);
-        } else {
-            // Mensagem de erro para arquivos incompatíveis
-            const errorMessage = document.createElement('div');
-            errorMessage.textContent = 'Tipo de arquivo não suportado!';
-            errorMessage.style.color = 'red';
-            mediaMessage.appendChild(errorMessage);
-        }
-
-        chatBox.appendChild(mediaMessage);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-});
-
 // Formatação de texto estilo Discord
 function applyFormatting(text) {
     let formattedText = text
@@ -154,10 +149,4 @@ function applyFormatting(text) {
     return formattedText;
 }
 
-// Ajustar altura do textarea automaticamente
-const messageInput = document.getElementById('messageInput');
 
-messageInput.addEventListener('input', () => {
-    messageInput.style.height = 'auto'; // Reseta a altura para recalcular
-    messageInput.style.height = `${messageInput.scrollHeight}px`; // Define a altura conforme o conteúdo
-});
