@@ -1,24 +1,74 @@
+// Upload de arquivos
+const attachButton = document.getElementById('attachButton');
+const fileInput = document.getElementById('fileInput');
+
+attachButton.addEventListener('click', () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const chatBox = document.getElementById('chatBox');
+        const mediaMessage = document.createElement('div');
+        mediaMessage.classList.add('message', 'sent');
+
+        let mediaContent = ''; // Para armazenar o HTML do conteúdo
+
+        if (file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.style.maxWidth = '100px';
+            img.style.borderRadius = '10px';
+            img.alt = 'Imagem enviada';
+            mediaMessage.appendChild(img);
+
+            mediaContent = `<img src="${img.src}" style="max-width: 100px; border-radius: 10px;" alt="Imagem enviada">`;
+        } else if (file.type.startsWith('video/')) {
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(file);
+            video.controls = true;
+            video.style.maxWidth = '150px';
+            mediaMessage.appendChild(video);
+
+            mediaContent = `<video src="${video.src}" controls style="max-width: 150px;"></video>`;
+        } else {
+            const errorMessage = document.createElement('div');
+            errorMessage.textContent = 'Tipo de arquivo não suportado!';
+            errorMessage.style.color = 'red';
+            mediaMessage.appendChild(errorMessage);
+
+            chatBox.appendChild(mediaMessage);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return;
+        }
+
+        chatBox.appendChild(mediaMessage);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Salvar a mensagem no localStorage
+        saveMessageToLocalStorage(mediaContent, 'sent');
+    }
+});
+
+// Função para enviar mensagem
 function sendMessage() {
     const messageInput = document.getElementById('messageInput');
     const messageText = messageInput.value.trim();
     const chatBox = document.getElementById('chatBox');
 
-    if (messageText === "") return;
+    if (!messageText) return;
 
-    // Aplicar formatação estilo Discord
     const formattedMessage = applyFormatting(messageText);
 
-    // Criar mensagem enviada
     const sentMessage = document.createElement('div');
     sentMessage.classList.add('message', 'sent');
     sentMessage.innerHTML = formattedMessage;
     chatBox.appendChild(sentMessage);
 
-    // Salvar a mensagem no histórico local (incluindo a do bot)
     saveMessageToLocalStorage(formattedMessage, 'sent');
 
-    // Limpar entrada e rolar para o final
-    messageInput.value = "";
+    messageInput.value = '';
     chatBox.scrollTop = chatBox.scrollHeight;
 
     // Resposta automática no Modo Bobo
@@ -29,24 +79,23 @@ function sendMessage() {
         chatBox.appendChild(replyMessage);
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        // Salvar a resposta do bot também no histórico
         saveMessageToLocalStorage(replyMessage.textContent, 'received');
     }, 1000);
 }
 
 // Salvar a mensagem no localStorage
 function saveMessageToLocalStorage(message, type) {
-    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
     chatHistory.push({ message, type });
     localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
-    renderChatHistory();  // Re-renderiza o histórico
+    renderChatHistory();
 }
 
-// Carregar o histórico de mensagens do localStorage
+// Carregar o histórico de mensagens
 function renderChatHistory() {
     const chatBox = document.getElementById('chatBox');
     const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
-    chatBox.innerHTML = '';  // Limpar o chat atual
+    chatBox.innerHTML = '';
     chatHistory.forEach(item => {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', item.type);
@@ -58,19 +107,14 @@ function renderChatHistory() {
 // Apagar o histórico
 function clearChatHistory() {
     localStorage.removeItem('chatHistory');
-    renderChatHistory();  // Re-renderiza o chat vazio
-}
-
-// Inicializar o chat com histórico carregado
-window.onload = function() {
     renderChatHistory();
 }
 
+// Inicializar o chat com histórico carregado
+window.onload = renderChatHistory;
+
 // Respostas engraçadas do Modo Bobo
-let lastReplyIndex = -1; // Índice da última resposta selecionada
-
-let usedReplies = []; // Lista para armazenar respostas já usadas
-
+let usedReplies = [];
 function getFunnyReply(userMessage) {
     const funnyReplies = [
         "Eu sou um bot, mas também gosto de memes! 😂",
@@ -118,18 +162,12 @@ function getFunnyReply(userMessage) {
         "Qual é o prato preferido do Thor? Thorresmo. 🤯",
     ];
 
-    // Remover piadas já usadas
-    let availableReplies = funnyReplies.filter(reply => !usedReplies.includes(reply));
-
-    if (availableReplies.length === 0) {
-        usedReplies = []; // Resetar a lista de respostas usadas
-        availableReplies = funnyReplies; // Recarregar todas as piadas
+    if (usedReplies.length === funnyReplies.length) {
+        usedReplies = [];
     }
 
-    // Selecionar uma piada aleatória
+    const availableReplies = funnyReplies.filter(reply => !usedReplies.includes(reply));
     const replyMessage = availableReplies[Math.floor(Math.random() * availableReplies.length)];
-    
-    // Marcar a resposta como usada
     usedReplies.push(replyMessage);
 
     return replyMessage;
@@ -137,16 +175,10 @@ function getFunnyReply(userMessage) {
 
 // Formatação de texto estilo Discord
 function applyFormatting(text) {
-    let formattedText = text
-        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")   // Negrito
-        .replace(/\*(.*?)\*/g, "<i>$1</i>")       // Itálico
-        .replace(/__(.*?)__/g, "<u>$1</u>")       // Sublinhado
-        .replace(/~~(.*?)~~/g, "<s>$1</s>")       // Tachado
-        .replace(
-            /(https?:\/\/[^\s]+)/g,               // Links
-            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
-        );
-    return formattedText;
+    return text
+        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+        .replace(/\*(.*?)\*/g, "<i>$1</i>")
+        .replace(/__(.*?)__/g, "<u>$1</u>")
+        .replace(/~~(.*?)~~/g, "<s>$1</s>")
+        .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
-
-
