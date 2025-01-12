@@ -1,0 +1,13 @@
+{
+  "name": "chat-clown",
+  "version": "1.0.0",
+  "description": "Projeto Chat Clown com VS Code",
+  "scripts": {
+    "install-clown": "npm install clown",
+    "start": "code ."
+  },
+  "author": "ErikrafT",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}
