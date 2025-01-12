@@ -127,9 +127,14 @@ fileInput.addEventListener('change', (event) => {
 // Formatação de texto estilo Discord
 function applyFormatting(text) {
     let formattedText = text
-        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // Negrito
-        .replace(/\*(.*?)\*/g, "<i>$1</i>")   // Itálico
-        .replace(/__(.*?)__/g, "<u>$1</u>")   // Sublinhado
-        .replace(/~~(.*?)~~/g, "<s>$1</s>"); // Tachado
+        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")   // Negrito
+        .replace(/\*(.*?)\*/g, "<i>$1</i>")       // Itálico
+        .replace(/__(.*?)__/g, "<u>$1</u>")       // Sublinhado
+        .replace(/~~(.*?)~~/g, "<s>$1</s>")       // Tachado
+        .replace(
+            /(https?:\/\/[^\s]+)/g,               // Links
+            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+        );
     return formattedText;
 }
+
