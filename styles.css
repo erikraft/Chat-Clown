@@ -22,47 +22,56 @@ body {
 
 .chat-header {
     background-color: #000000;
-    padding: 15px;
-    text-align: center;
     color: white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
-
-.chat-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 10px;
 }
 
 .profile {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .bot-profile {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.chat-header h3 {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.chat-header h3 i {
+    margin: 0 5px;
 }
 
 .trash-icon {
-  cursor: pointer;
-  color: #d9534f;
-  font-size: 20px;
+    cursor: pointer;
+    color: #d9534f;
+    font-size: 20px;
+    transition: color 0.3s;
 }
 
 .trash-icon:hover {
-  color: #d9534f;
+    color: #f44336;
 }
-
 
 .chat-box {
     flex-grow: 1;
     padding: 10px;
     overflow-y: auto;
     background-color: #222222;
+    color: white;
 }
 
 .message {
@@ -70,6 +79,7 @@ body {
     margin: 5px 0;
     border-radius: 10px;
     max-width: 80%;
+    color: black;
 }
 
 .received {
@@ -98,6 +108,8 @@ body {
     border-radius: 20px;
     resize: none;
     height: 40px;
+    color: white;
+    background-color: #222222;
 }
 
 button {
@@ -111,6 +123,11 @@ button {
     align-items: center;
     justify-content: center;
     font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #008e60;
 }
 
 button i {
@@ -121,7 +138,10 @@ button i {
     background-color: #006fd4;
 }
 
+#attachButton:hover {
+    background-color: #0056a2;
+}
+
 #fileInput {
     display: none;
 }
-
