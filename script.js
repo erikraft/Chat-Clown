@@ -138,3 +138,11 @@ function applyFormatting(text) {
     return formattedText;
 }
 
+// Ajustar altura do textarea automaticamente
+const messageInput = document.getElementById('messageInput');
+
+messageInput.addEventListener('input', () => {
+    messageInput.style.height = 'auto'; // Reseta a altura para recalcular
+    messageInput.style.height = `${messageInput.scrollHeight}px`; // Define a altura conforme o conteúdo
+});
+
