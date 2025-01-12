@@ -58,6 +58,5 @@ O texto será renderizado como:
 ---
 
 💻 **Desenvolvido por:** **ErikrafT**  
-📢 **Anúncios inteligentes com ErikrafT Ads!**  
 
 --- 
