@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +8,28 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <script crossorigin="anonymous" src="https://kit.fontawesome.com/d0c1f8f22b.js"></script>
 </head>
-
 <body>
   <div class="chat-container">
     <div class="chat-header">
-      <h3><i class="fa-solid fa-message"></i> Chat Clown <i class="fa-solid fa-face-grin-squint-tears fa-shake"></i>
-      </h3>
+      <div class="profile">
+        <img src="bot-profile.jpg" alt="Bot" class="bot-profile" />
+      </div>
+      <h3><i class="fa-solid fa-message"></i> Chat Clown <i class="fa-solid fa-face-grin-squint-tears fa-shake"></i></h3>
+      <div class="trash-icon">
+        <i class="fa-solid fa-trash-can" onclick="clearChatHistory()"></i>
+      </div>
     </div>
     <div class="chat-box" id="chatBox"></div>
     <div class="input-box">
       <button id="attachButton" title="Enviar foto ou vídeo">
-                <i class="fa-solid fa-paperclip"></i>
-            </button>
+        <i class="fa-solid fa-paperclip"></i>
+      </button>
       <textarea id="messageInput" placeholder="Digite sua mensagem..."></textarea>
       <button id="sendButton" title="Enviar mensagem" onclick="sendMessage()">
-                <i class="fa-solid fa-paper-plane"></i>
-            </button>
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
       <input type="file" id="fileInput" accept="image/*,video/*" />
-        </div>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
