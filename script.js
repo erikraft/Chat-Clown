@@ -81,6 +81,49 @@ function getFunnyReply(userMessage) {
     return funnyReplies[randomIndex];
 }
 
+// Upload de arquivos
+const attachButton = document.getElementById('attachButton');
+const fileInput = document.getElementById('fileInput');
+
+attachButton.addEventListener('click', () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const chatBox = document.getElementById('chatBox');
+        const mediaMessage = document.createElement('div');
+        mediaMessage.classList.add('message', 'sent');
+
+        if (file.type.startsWith('image/')) {
+            // Criar elemento para imagem
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.style.maxWidth = '100px';
+            img.style.borderRadius = '10px';
+            img.alt = 'Imagem enviada'; // Alt para acessibilidade
+            mediaMessage.appendChild(img);
+        } else if (file.type.startsWith('video/')) {
+            // Criar elemento para vídeo
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(file);
+            video.controls = true;
+            video.style.maxWidth = '150px';
+            mediaMessage.appendChild(video);
+        } else {
+            // Mensagem de erro para arquivos incompatíveis
+            const errorMessage = document.createElement('div');
+            errorMessage.textContent = 'Tipo de arquivo não suportado!';
+            errorMessage.style.color = 'red';
+            mediaMessage.appendChild(errorMessage);
+        }
+
+        chatBox.appendChild(mediaMessage);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+});
+
 // Formatação de texto estilo Discord
 function applyFormatting(text) {
     let formattedText = text
