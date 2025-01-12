@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Clown</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script crossorigin="anonymous" src="https://kit.fontawesome.com/d0c1f8f22b.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Clown</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script crossorigin="anonymous" src="https://kit.fontawesome.com/d0c1f8f22b.js"></script>
 </head>
+
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h3><i class="fa-solid fa-message"></i> Chat Clown <i class="fa-solid fa-face-grin-squint-tears fa-shake"></i></i></h3>
-        </div>
-        <div class="chat-box" id="chatBox"></div>
-        <div class="input-box">
-            <button id="attachButton" title="Enviar foto ou vídeo">
+  <div class="chat-container">
+    <div class="chat-header">
+      <h3><i class="fa-solid fa-message"></i> Chat Clown <i class="fa-solid fa-face-grin-squint-tears fa-shake"></i>
+      </h3>
+    </div>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="input-box">
+      <button id="attachButton" title="Enviar foto ou vídeo">
                 <i class="fa-solid fa-paperclip"></i>
             </button>
-            <textarea id="messageInput" placeholder="Digite sua mensagem..."></textarea>
-            <button id="sendButton" title="Enviar mensagem" onclick="sendMessage()">
+      <textarea id="messageInput" placeholder="Digite sua mensagem..."></textarea>
+      <button id="sendButton" title="Enviar mensagem" onclick="sendMessage()">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
-            <input type="file" id="fileInput" accept="image/*,video/*" />
+      <input type="file" id="fileInput" accept="image/*,video/*" />
         </div>
-    </div>
-    <script src="script.js"></script>
+  </div>
+  <script src="script.js"></script>
 </body>
+
 </html>
