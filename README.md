@@ -1,6 +1,6 @@
-# 🤡💬 **Chat Clown** :trollface:  
+# 🤡💬 **Chat Clown**  
 
-> **Transforme qualquer conversa em uma experiência repleta de risadas!**
+> :trollface: **Transforme qualquer conversa em uma experiência repleta de risadas!**
 
 Teste Aqui --> [clown.erikraft.com](https://clown.erikraft.com/)
 
