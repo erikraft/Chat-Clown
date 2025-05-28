@@ -1,4 +1,4 @@
-# 🤡💬 **Chat Clown**  
+# 🤡💬 **Chat Clown** :trollface:  
 
 > **Transforme qualquer conversa em uma experiência repleta de risadas!**
 
